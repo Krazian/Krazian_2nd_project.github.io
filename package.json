@@ -1,0 +1,27 @@
+{
+  "name": "krazian_2nd_project.github.io",
+  "version": "1.0.0",
+  "description": "1. User should be able to perform basic CRUD (post new thread, read previous threads, and edit and delete his/her own thread) 2. Posts should have a vote up/like functionality  3. User can filter posts by number of likes or comments 4. Include responsiveness across different platforms",
+  "main": "forum.js",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "ejs": "^2.3.3",
+    "express": "^4.13.3",
+    "method-override": "^2.3.5",
+    "sqlite3": "^3.0.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Krazian/Krazian_2nd_project.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Krazian/Krazian_2nd_project.github.io/issues"
+  },
+  "homepage": "https://github.com/Krazian/Krazian_2nd_project.github.io#readme"
+}
