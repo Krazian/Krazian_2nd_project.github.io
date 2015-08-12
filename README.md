@@ -14,8 +14,8 @@
 2. If user uses filter, user chooses either "likes" or "comments" and hits confirm/submit. Server will render either page with descending number of likes or comments.
 3. If user clicks on thread topic from main page, server renders the full message with meta data and options to like, comment, edit, or delete.
 4. If user decides to edit, server renders page with text field already populated with the original post.
-* User can cancel edit and be redirected to main page.
-* User can make changes then confirm. Server will update with new entry and redirect user to main page.
+ * User can cancel edit and be redirected to main page.
+ * User can make changes then confirm. Server will update with new entry and redirect user to main page.
 5. If user clicks comment, server renders new page with empty text box, cancel and submit button.
 6. If user clicks like, render same page with updated 'like' count.
 7. If user deletes, the post is removed from database, and user is redirected to main page.
