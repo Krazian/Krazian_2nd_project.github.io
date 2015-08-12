@@ -25,7 +25,6 @@ app.get("/threads", function(req,res){
 		if(err){
 			throw err;
 		}else{
-			// console.log(row)
 			res.render("index.ejs",{threads:row})
 		};
 	});
@@ -34,13 +33,12 @@ app.get("/threads", function(req,res){
 //'specific thread' page
 app.get("/threads/:id", function(req,res){
 	var id = req.params.id;
-	//grabs specific thread from database
+	//grabs specific columns from specific thread where the id matches id in url
 	db.get("SELECT threads.id, threads.title, users.username, threads.created_at, threads.updated_at, threads.content FROM threads INNER JOIN users ON threads.id="+id+" WHERE users.id=threads.user_id;",function(err,threads){
 		if(err){
 			throw err;
 		}else{
-			console.log(threads)
-				//grabs the usernames of the commenters of the specific thread
+				//within the thread grab certain columns from both tables to prevent overlapping
 				db.all("SELECT users.username, users.id, comments.created_at, comments.content FROM comments INNER JOIN users ON comments.user_id=users.id WHERE comments.thread_id="+id+";",function(err,users){
 					// console.log(users)
 				res.render("show.ejs",{threads:threads, users:users});
@@ -49,14 +47,13 @@ app.get("/threads/:id", function(req,res){
 	});
 });
 
-//updating thread with a comment
+//post a comment to thread then 'refresh' page
 app.post("/threads/:id",function(req,res){
  var id = req.params.id;
  db.run("INSERT INTO comments (thread_id,user_id,content) VALUES (?,?,?)",id,1,req.body.content,function(err){
  	if(err){
  		throw err;
- 	}
- 	console.log(id)
+ 	};
  	res.redirect("/threads/"+id+"");
  });
 });
