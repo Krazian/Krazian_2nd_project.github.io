@@ -49,7 +49,7 @@ app.put("/threads/:id", function(req,res){
 	db.run("UPDATE threads SET content="+req.body.content+" WHERE id="+id+"",function(err){
 		console.log(req.body.content)
 		console.log(id)
-		if(err){
+		if(err){ //something happens here
 			throw err;
 		}
 		res.redirect("/threads/"+id+"");
