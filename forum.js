@@ -35,18 +35,30 @@ app.get("/threads", function(req,res){
 app.get("/threads/:id", function(req,res){
 	var id = req.params.id;
 	//grabs specific thread from database
-	db.get("SELECT * FROM threads INNER JOIN users ON threads.id="+id+" WHERE users.id=threads.user_id;",function(err,threads){
+	db.get("SELECT threads.id, threads.title, users.username, threads.created_at, threads.updated_at, threads.content FROM threads INNER JOIN users ON threads.id="+id+" WHERE users.id=threads.user_id;",function(err,threads){
 		if(err){
 			throw err;
 		}else{
-			// console.log(threads)
+			console.log(threads)
 				//grabs the usernames of the commenters of the specific thread
-				db.all("SELECT * FROM comments INNER JOIN users ON comments.user_id=users.id WHERE comments.thread_id="+id+";",function(err,users){
-					console.log(users)
+				db.all("SELECT users.username, users.id, comments.created_at, comments.content FROM comments INNER JOIN users ON comments.user_id=users.id WHERE comments.thread_id="+id+";",function(err,users){
+					// console.log(users)
 				res.render("show.ejs",{threads:threads, users:users});
 			});
 		};
 	});
+});
+
+//updating thread with a comment
+app.post("/threads/:id",function(req,res){
+ var id = req.params.id;
+ db.run("INSERT INTO comments (thread_id,user_id,content) VALUES (?,?,?)",id,1,req.body.content,function(err){
+ 	if(err){
+ 		throw err;
+ 	}
+ 	console.log(id)
+ 	res.redirect("/threads/"+id+"");
+ });
 });
 
 
