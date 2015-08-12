@@ -33,7 +33,7 @@ app.get("/threads", function(req,res){
 //Edit page
 app.get("/threads/:id/edit",function(req,res){
 	var id = req.params.id;
-	db.get("SELECT threads.id, threads.title, users.username, threads.created_at, threads.updated_at, threads.content FROM threads INNER JOIN users ON threads.id="+id+" WHERE users.id=threads.user_id;",function(err,content){
+	db.get("SELECT threads.id, threads.title, users.username, threads.created_at, threads.updated_at, threads.content FROM threads INNER JOIN users ON threads.id=? WHERE users.id=threads.user_id;",id,function(err,content){
 		if(err){
 			throw err;
 		}else{
@@ -46,7 +46,7 @@ app.get("/threads/:id/edit",function(req,res){
 app.put("/threads/:id", function(req,res){
 	var id = req.params.id;
 	//changes content of post and the timestamp when it was changed
-	db.run("UPDATE threads SET content="+req.body.content+" WHERE id="+id+"",function(err){
+	db.run("UPDATE threads SET content=? WHERE id=?",req.body.content,id,function(err){
 		console.log(req.body.content)
 		console.log(id)
 		if(err){ //something happens here
@@ -60,12 +60,12 @@ app.put("/threads/:id", function(req,res){
 app.get("/threads/:id", function(req,res){
 	var id = req.params.id;
 	//grabs specific columns from specific thread where the id matches id in url
-	db.get("SELECT threads.id, threads.title, users.username, threads.created_at, threads.updated_at, threads.content FROM threads INNER JOIN users ON threads.id="+id+" WHERE users.id=threads.user_id;",function(err,threads){
+	db.get("SELECT threads.id, threads.title, users.username, threads.created_at, threads.updated_at, threads.content FROM threads INNER JOIN users ON threads.id=? WHERE users.id=threads.user_id;",id,function(err,threads){
 		if(err){
 			throw err;
 		}else{
 				//within the thread grab certain columns from both tables to prevent overlapping
-				db.all("SELECT users.username, users.id, comments.created_at, comments.content FROM comments INNER JOIN users ON comments.user_id=users.id WHERE comments.thread_id="+id+";",function(err,users){
+				db.all("SELECT users.username, users.id, comments.created_at, comments.content FROM comments INNER JOIN users ON comments.user_id=users.id WHERE comments.thread_id=?",id,function(err,users){
 					// console.log(users)
 				res.render("show.ejs",{threads:threads, users:users});
 			});
