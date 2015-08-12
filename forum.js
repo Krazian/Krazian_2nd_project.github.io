@@ -21,20 +21,34 @@ app.get("/",function(req,res){
 
 //'home' page
 app.get("/threads", function(req,res){
-	db.all("SELECT title FROM threads",function(err,row){
+	db.all("SELECT title, id, created_at FROM threads",function(err,row){
 		if(err){
 			throw err;
 		}else{
+			// console.log(row)
 			res.render("index.ejs",{threads:row})
 		};
 	});
 });
 
 //'specific thread' page
-app.get("/threads/:id", function)
+app.get("/threads/:id", function(req,res){
+	var id = req.params.id;
+	//grabs specific thread from database
+	db.get("SELECT * FROM threads INNER JOIN users ON threads.id="+id+" WHERE users.id=threads.user_id;",function(err,threads){
+		if(err){
+			throw err;
+		}else{
+			// console.log(threads)
+				//grabs the usernames of the commenters of the specific thread
+				db.all("SELECT * FROM comments INNER JOIN users ON comments.user_id=users.id WHERE comments.thread_id="+id+";",function(err,users){
+					console.log(users)
+				res.render("show.ejs",{threads:threads, users:users});
+			});
+		};
+	});
+});
 
-//grabs meta-data of specific thread
-//SELECT * FROM threads INNER JOIN users ON threads.id=2 WHERE users.id=threads.user_id;
 
 //'Server listening' and end of code
 app.listen(3000,function(){

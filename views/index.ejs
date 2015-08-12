@@ -5,9 +5,10 @@
 	<title>Main Page</title>
 </head>
 <body>
+	<h1>Topics</h1>
 	<ul>
 	<% threads.forEach(function(threads){ %>
-		<li><a href="/threads/<%= threads.id %>"><%= threads.title %></a></li>
+		<li><a href="/threads/<%= threads.id %>"><%= threads.title %></a> <p>Created: <%=threads.created_at%></p></li>
 	<% })%>
 </ul>
 </body>
