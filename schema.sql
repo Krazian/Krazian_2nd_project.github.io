@@ -10,6 +10,7 @@ username TEXT
 CREATE TABLE threads(
 id INTEGER PRIMARY KEY,
 user_id INTEGER,
+title TEXT,
 content TEXT,
 likes INTEGER,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

@@ -21,10 +21,20 @@ app.get("/",function(req,res){
 
 //'home' page
 app.get("/threads", function(req,res){
-	//needs db.all
-	res.render("index.ejs")
+	db.all("SELECT title FROM threads",function(err,row){
+		if(err){
+			throw err;
+		}else{
+			res.render("index.ejs",{threads:row})
+		};
+	});
 });
 
+//'specific thread' page
+app.get("/threads/:id", function)
+
+//grabs meta-data of specific thread
+//SELECT * FROM threads INNER JOIN users ON threads.id=2 WHERE users.id=threads.user_id;
 
 //'Server listening' and end of code
 app.listen(3000,function(){

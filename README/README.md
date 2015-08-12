@@ -2,7 +2,11 @@
 ##Forum Project
 ###**User Story**
 1. User should be able to perform basic CRUD (post new thread, read previous threads, and edit and delete his/her own thread)
+	* When creating a new thread, user can choose a profile name, submit, or delete
+	* When editing, user can submit or cancel
+	* When reading a thread, user can like or choose a profile name and leave a comment
 2. Posts should have a vote up/like functionality 
+	* Users can only like a post once
 3. User can filter posts by number of likes or comments
 4. Include responsiveness across different platforms
 
@@ -21,12 +25,12 @@
 7. If user deletes, the post is removed from database, and user is redirected to main page.
 
 ###**Routes**
-1. "/home" - main page
-2. "/home/likes" - filtered by # of likes
-3. "/home/comment/" - filtered by # of comments
-4. "/home/:id" - specific thread
-5. "/home/:id/edit" - edit page
-6. "/home/:id/new" - add new comment
+1. "/threads" - main page
+2. "/threads/likes" - filtered by # of likes
+3. "/threads/comment/" - filtered by # of comments
+4. "/threads/:id" - specific thread
+5. "/threads/:id/edit" - edit page
+6. "/threads/:id/new" - add new comment
 
 ###**ERD**
 ![ERD](ERD.png)
