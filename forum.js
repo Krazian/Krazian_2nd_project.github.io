@@ -30,6 +30,32 @@ app.get("/threads", function(req,res){
 	});
 });
 
+//Edit page
+app.get("/threads/:id/edit",function(req,res){
+	var id = req.params.id;
+	db.get("SELECT threads.id, threads.title, users.username, threads.created_at, threads.updated_at, threads.content FROM threads INNER JOIN users ON threads.id="+id+" WHERE users.id=threads.user_id;",function(err,content){
+		if(err){
+			throw err;
+		}else{
+			res.render("edit.ejs",{content:content})
+		}
+	});
+});
+
+//Edit a post
+app.put("/threads/:id", function(req,res){
+	var id = req.params.id;
+	//changes content of post and the timestamp when it was changed
+	db.run("UPDATE threads SET content="+req.body.content+" WHERE id="+id+"",function(err){
+		console.log(req.body.content)
+		console.log(id)
+		if(err){
+			throw err;
+		}
+		res.redirect("/threads/"+id+"");
+	});
+});
+
 //'specific thread' page
 app.get("/threads/:id", function(req,res){
 	var id = req.params.id;

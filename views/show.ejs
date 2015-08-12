@@ -20,14 +20,14 @@
 
 
 <div class="buttons">
-		<button>Edit</button>
+		<button><a href="/threads/<%= threads.id %>/edit">Edit</a></button>
 		<form action="/threads/<%=threads.id%>/?_method=DELETE" method="POST">
 			<button>Delete</button>
 		</form>
 		<button>Like</button>
 </div>
 		<form action="/threads/<%=threads.id%>" method="POST">
-			<input type="text" name="content" style="height:200px; width:500px;"><br/>
+			<textarea type="text" name="content" rows="15" cols="50" wrap="physical" placeholder="Write a comment!"></textarea><br/>
 			<input type="submit">
 		</form>
 </body>
