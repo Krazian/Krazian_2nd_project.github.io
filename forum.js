@@ -38,7 +38,7 @@ app.get("/threads/:id/edit",function(req,res){
 			throw err;
 		}else{
 			res.render("edit.ejs",{content:content})
-		}
+		};
 	});
 });
 
@@ -51,7 +51,7 @@ app.put("/threads/:id", function(req,res){
 		console.log(id)
 		if(err){ //something happens here
 			throw err;
-		}
+		};
 		res.redirect("/threads/"+id+"");
 	});
 });
