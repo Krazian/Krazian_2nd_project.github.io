@@ -66,7 +66,7 @@ app.put("/threads/:id", function(req,res){
 		//else the changes are saved
 	}else{
 	//changes content of post and the timestamp when it was changed
-		db.run("UPDATE threads SET content=? WHERE id=?",req.body.content,id,function(err){
+		db.run("UPDATE threads SET content=? updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP WHERE id=?",req.body.content,id,function(err){
 
 			if(err){
 				throw err;
