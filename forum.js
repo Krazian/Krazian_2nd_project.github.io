@@ -30,6 +30,18 @@ app.get("/threads", function(req,res){
 	});
 });
 
+//new thread page
+app.get("/threads/new", function(req,res){
+	db.all("SELECT * FROM users",function(err,allusers){
+	res.render("new.ejs",{users:allusers});
+})
+
+//post a new thread
+app.post("/threads",function(req,res){
+	db.run("INSERT INTO threads (user_id,title,content,likes,comments) VALUES (?,?,?,?,?)",req.body.chooseUsername,req.body.title,req.body.content,0,0)
+	});
+});
+
 //Filter page by comments
 app.get("/threads/filter/comments", function(req,res){
 		db.all("SELECT id, title, created_at, comments FROM threads ORDER BY comments DESC",function(err,comments){
@@ -55,8 +67,7 @@ app.put("/threads/:id", function(req,res){
 	}else{
 	//changes content of post and the timestamp when it was changed
 		db.run("UPDATE threads SET content=? WHERE id=?",req.body.content,id,function(err){
-			console.log(req.body.content)
-			console.log(id)
+
 			if(err){
 				throw err;
 			};
@@ -91,7 +102,7 @@ app.post("/threads/:id",function(req,res){
 	 db.run("UPDATE threads SET comments=comments+1 WHERE id=?",id,function(err){});
 		res.redirect("/threads/"+id+"");
 	 });
-}
+	};
 });
 
 //deleting thread and all comments on thread
@@ -109,7 +120,7 @@ app.get("/threads/:id/edit",function(req,res){
 			if(err){
 				throw err;
 			}else{
-				res.render("edit.ejs",{content:content})
+				res.render("edit.ejs",{content:content});
 			};
 		});
 });
@@ -118,5 +129,3 @@ app.get("/threads/:id/edit",function(req,res){
 app.listen(3000,function(){
 	console.log("Forum activated. Commence spamming and trolling.");
 });
-
-// INSERT INTO threads (user_id,title,content,likes,comments) VALUES (1,"Testing testing 123","This is just a test. I repeat, this is just a test.",0,0);
