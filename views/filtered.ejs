@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Filter</title>
+</head>
+<body>
+	<h1>Filtered Topics </h1>
+	<ul>
+	<% filter.forEach(function(filter){ %>
+		<li><a href="/threads/<%= filter.id %>"><%= filter.title %></a> <p>Created: <%=filter.created_at%><br/>Comments: <%=filter.comments%></p></li>
+	<% }) %>
+</ul>
+</body>
+</html>

@@ -13,6 +13,7 @@ user_id INTEGER,
 title TEXT,
 content TEXT,
 likes INTEGER,
+comments INTEGER,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 FOREIGN KEY (user_id) REFERENCES users(id)
