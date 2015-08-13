@@ -33,56 +33,72 @@ app.get("/threads", function(req,res){
 //Edit page
 app.get("/threads/:id/edit",function(req,res){
 	var id = req.params.id;
-	db.get("SELECT threads.id, threads.title, users.username, threads.created_at, threads.updated_at, threads.content FROM threads INNER JOIN users ON threads.id=? WHERE users.id=threads.user_id;",id,function(err,content){
-		if(err){
-			throw err;
-		}else{
-			res.render("edit.ejs",{content:content})
-		};
-	});
+		db.get("SELECT threads.id, threads.title, users.username, threads.created_at, threads.updated_at, threads.content FROM threads INNER JOIN users ON threads.id=? WHERE users.id=threads.user_id;",id,function(err,content){
+			if(err){
+				throw err;
+			}else{
+				res.render("edit.ejs",{content:content})
+			};
+		});
 });
 
 //Edit a post
 app.put("/threads/:id", function(req,res){
 	var id = req.params.id;
-	//changes content of post and the timestamp when it was changed
-	db.run("UPDATE threads SET content=? WHERE id=?",req.body.content,id,function(err){
-		console.log(req.body.content)
-		console.log(id)
-		if(err){ //something happens here
-			throw err;
-		};
+	//if user deletes all text and submits, changes are not saved and is redirected to thread page
+	if(req.body.content===""){
 		res.redirect("/threads/"+id+"");
-	});
+		//else the changes are saved
+	}else{
+	//changes content of post and the timestamp when it was changed
+		db.run("UPDATE threads SET content=? WHERE id=?",req.body.content,id,function(err){
+			console.log(req.body.content)
+			console.log(id)
+			if(err){
+				throw err;
+			};
+			res.redirect("/threads/"+id+"");
+		});
+	};
 });
 
 //'specific thread' page
+//3 nested db = no good, need to find a way to refactor
 app.get("/threads/:id", function(req,res){
 	var id = req.params.id;
 	//grabs specific columns from specific thread where the id matches id in url
 	db.get("SELECT threads.id, threads.title, users.username, threads.created_at, threads.updated_at, threads.content FROM threads INNER JOIN users ON threads.id=? WHERE users.id=threads.user_id;",id,function(err,threads){
-		if(err){
-			throw err;
-		}else{
 				//within the thread grab certain columns from both tables to prevent overlapping
 				db.all("SELECT users.username, users.id, comments.created_at, comments.content FROM comments INNER JOIN users ON comments.user_id=users.id WHERE comments.thread_id=?",id,function(err,users){
-					// console.log(users)
-				res.render("show.ejs",{threads:threads, users:users});
+					//gets all users for dropdown in ejs
+					db.all("SELECT * FROM users",function(err,allusers){
+				res.render("show.ejs",{threads:threads, users:users, allusers:allusers});
+				});
 			});
-		};
+		});
 	});
-});
-
+	
 //post a comment to thread then 'refresh' page
 app.post("/threads/:id",function(req,res){
  var id = req.params.id;
- db.run("INSERT INTO comments (thread_id,user_id,content) VALUES (?,?,?)",id,1,req.body.content,function(err){
- 	if(err){
- 		throw err;
- 	};
- 	res.redirect("/threads/"+id+"");
- });
+ //prevents submitting empty comment
+ if(req.body.content!==""){
+	 db.run("INSERT INTO comments (thread_id,user_id,content) VALUES (?,?,?)",id,req.body.chooseUsername,req.body.content,function(err){
+	 	if(err){
+	 		throw err;
+	 	};
+		res.redirect("/threads/"+id+"");
+	 });
+}
 });
+
+//deleting thread and all comments on thread
+app.delete("/threads/:id",function(req,res){
+ var id = req.params.id;
+ db.run("DELETE FROM threads WHERE id=?",id,function(err){});
+ db.run("DELETE FROM comments WHERE thread_id=?",id,function(err){});
+	res.redirect("/threads");
+ });
 
 
 //'Server listening' and end of code

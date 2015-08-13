@@ -24,9 +24,15 @@
 		<form action="/threads/<%=threads.id%>/?_method=DELETE" method="POST">
 			<button>Delete</button>
 		</form>
-		<button>Like</button>
+		<button class="liked">Like</button>
 </div>
 		<form action="/threads/<%=threads.id%>" method="POST">
+			<select name="chooseUsername" placeholder="Username">
+				<% allusers.forEach(function(each){ %>
+					<option value="<%=each.id%>"><%=each.username%></option>
+						<% }) %>
+			</select>
+				<br/>
 			<textarea type="text" name="content" rows="15" cols="50" wrap="physical" placeholder="Write a comment!"></textarea><br/>
 			<input type="submit">
 		</form>
