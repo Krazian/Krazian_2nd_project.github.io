@@ -5,13 +5,11 @@
 	<title>Main Page</title>
 </head>
 <body>
-	<h1>Topics</h1>
-	<button><a href="/threads/new">New Post</a></button>
-	<form method="POST" action="/threads/filter">
+	<h1>Topics</h1><br/><button><a href="/threads">Home</a></button><br/>
+	<button><a href="/threads/new">New Post</a></button><br/>
 		<label for="filter">Filter by: </label>
 		<button><a href="/threads/filter/comments">Comments</a></button>
 		<button><a href="/threads/filter/likes">Likes</a></button>
-	</form>
 	<ul>
 	<% threads.forEach(function(threads){ %>
 		<li><a href="/threads/<%= threads.id %>"><%= threads.title %></a> <p>Created: <%=threads.created_at%><br/>Comments: <%=threads.comments%></p></li>

@@ -5,6 +5,7 @@
 	<title><%=threads.title%></title>
 </head>
 <body>
+	<button><a href="/threads">Home</a></button><br/>
 	<h1><%=threads.title%> by "<%=threads.username%>"</h1>
 	<h3>Created:<%= threads.created_at %><br/>Last Updated: <%= threads.updated_at %></h3>
 		<h4><%= threads.content %></h4>
