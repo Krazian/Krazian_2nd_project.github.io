@@ -7,6 +7,7 @@ var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
 var app = express();
 var db = new sqlite3.Database('forum.db');
+var ejs = require('ejs');
 
 
 //Setup for parsing info, viewing pages, update and delete stuff, and making them look nice
@@ -22,8 +23,13 @@ var api = JSON.parse(fs.readFileSync("api_keys.json","utf8"));
 
 //root path redirect
 app.get("/",function(req,res){
-	res.redirect("/threads");
+	res.redirect("/landing");
 });
+
+//intro sequence
+app.get("/landing", function(req,res){
+	res.render("landing.ejs")
+})
 
 //'home' page
 app.get("/threads", function(req,res){
