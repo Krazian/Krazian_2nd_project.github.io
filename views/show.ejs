@@ -25,7 +25,9 @@
 		<form action="/threads/<%=threads.id%>/?_method=DELETE" method="POST">
 			<button>Delete</button>
 		</form>
+		<form action="/threads/<%=threads.id%>/?_method=PUT" method="POST">
 		<button class="liked">Like</button>
+		</form>
 </div>
 		<form action="/threads/<%=threads.id%>" method="POST">
 			<select name="chooseUsername" placeholder="Username">

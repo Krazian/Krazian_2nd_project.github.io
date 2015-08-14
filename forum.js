@@ -46,7 +46,6 @@ app.post("/threads",function(req,res){
 //Filter page by comments
 app.get("/threads/filter/comments", function(req,res){
 		db.all("SELECT id, title, created_at, comments FROM threads ORDER BY comments DESC",function(err,comments){
-			console.log(comments)
 			res.render("filtered.ejs",{filter:comments});
 		});
 });
@@ -67,7 +66,7 @@ app.put("/threads/:id", function(req,res){
 		//else the changes are saved
 	}else{
 	//changes content of post and the timestamp when it was changed
-		db.run("UPDATE threads SET content=? WHERE id=?",req.body.content,id,function(err){
+		db.run("UPDATE threads SET content=?, updated_at=CURRENT_TIMESTAMP WHERE id=?",req.body.content,id,function(err){
 
 			if(err){
 				throw err;

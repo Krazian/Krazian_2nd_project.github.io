@@ -30,6 +30,6 @@ FOREIGN KEY (user_id) REFERENCES users(id),
 FOREIGN KEY (thread_id) REFERENCES threads(id)
 );
 
-
+-- CREATE TRIGGER update_time UPDATE ON threads FOR EACH ROW BEGIN UPDATE threads SET updated_at=TIMESTAMP DEFAULT CURRENT_TIMESTAMP END;
 
 PRAGMA foreign_keys = ON;
