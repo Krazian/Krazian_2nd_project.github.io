@@ -8,11 +8,17 @@ var bodyParser = require('body-parser');
 var app = express();
 var db = new sqlite3.Database('forum.db');
 
+
 //Setup for parsing info, viewing pages, update and delete stuff, and making them look nice
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({extended:false}));
 app.set('view_engine','ejs');
+
+//Alert for bad info
+
+//self explanatory
+var api = JSON.parse(fs.readFileSync("api_keys.json","utf8"));
 
 //root path redirect
 app.get("/",function(req,res){
@@ -30,8 +36,81 @@ app.get("/threads", function(req,res){
 	});
 });
 
+//new user page
+app.get("/threads/newuser", function(req,res){
+	res.render("newuser.ejs");
+});
+
+//add random user
+app.post("/threads/random/newuser",function(req,res){
+	request("https://randomapi.com/api/?key="+api.random.key+"&id="+api.random.id, function(err,response,body){
+		var name = JSON.parse(body).results[0].object.list;
+		db.all("SELECT * FROM users",function(err,allusers){
+			var match = false
+			allusers.forEach(function(user){
+				if (name === user.username){
+					match = true;
+				}});
+				if (match === false){
+					db.run("INSERT INTO users (username) VALUES (?)",name,function(err){});
+					res.send("<h1><a href='/threads'>HOME</a></h1><script type='text/javascript'>alert('The name "+name+" was added! Hurrayyyy!! Now go home...What? You expected me to do that for you?')</script>");
+				} else {
+					res.send("<html lang='en'>"+
+					"<head>"+
+					"	<meta charset='UTF-8'>"+
+					"	<title>Add New Username</title>"+
+					"</head>"+
+					"<body>"+
+					"	<br/><button><a href='/threads'>Home</a></button><br/>"+
+					"	<form method='POST' action='/threads/man/newuser'>"+
+							"<input type='text' name='username'><br/><input type='submit'>"+
+						"</form>"+
+					"	<form method='POST' action='/threads/random/newuser'>"+
+					"		<button>RANDOMIZE</button>"+
+					"	</form>"+
+					"</body>"+
+					"<script type='text/javascript'>alert('This name already exists, come up with something original!')</script>"+
+					"</html>");  
+				};
+			});
+		});
+	});
+
+//add new user
+app.post("/threads/man/newuser",function(req,res){
+	db.all("SELECT * FROM users",function(err,allusers){
+		var match = false
+		allusers.forEach(function(user){
+			if (req.body.username === user.username){
+				match = true
+			}});
+			if (match === false){
+				db.run("INSERT INTO users (username) VALUES (?)",req.body.username,function(err){});
+				res.send("<h1><a href='/threads'>HOME</a></h1><script type='text/javascript'>alert('The name "+req.body.username+" was added! Hurrayyyy!! Now go home...What? You expected me to do that for you?')</script>");
+			} else {
+				res.send("<!DOCTYPE html>"+
+					"<html lang='en'>"+
+					"<head>"+
+					"	<meta charset='UTF-8'>"+
+					"	<title>Add New Username</title>"+
+					"</head>"+
+					"<body>"+
+					"	<br/><button><a href='/threads'>Home</a></button><br/>"+
+					"	<form method='POST' action='/threads/man/newuser'>"+
+							"<input type='text' name='username'><br/><input type='submit'>"+
+						"</form>"+
+					"	<form method='POST' action='/threads/random/newuser'>"+
+					"		<button>RANDOMIZE</button>"+
+					"	</form>"+
+					"</body>"+
+					"<script type='text/javascript'>alert('This name already exists, come up with something original!')</script>"+
+					"</html>");  
+					};
+				});
+			});
+
 //new thread page
-app.get("/threads/new", function(req,res){
+app.get("/threads/newthread", function(req,res){
 	db.all("SELECT * FROM users",function(err,allusers){
 	res.render("new.ejs",{users:allusers});
 })
