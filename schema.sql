@@ -14,8 +14,8 @@ title TEXT,
 content TEXT,
 likes INTEGER,
 comments INTEGER,
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+created_at TIMESTAMP DEFAULT (datetime('now','localtime')),
+updated_at TIMESTAMP DEFAULT (datetime('now','localtime')),
 FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
@@ -24,12 +24,18 @@ id INTEGER PRIMARY KEY,
 thread_id INTEGER,
 user_id INTEGER,
 content TEXT,
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+created_at TIMESTAMP DEFAULT (datetime('now','localtime')),
+updated_at TIMESTAMP DEFAULT (datetime('now','localtime')),
 FOREIGN KEY (user_id) REFERENCES users(id),
 FOREIGN KEY (thread_id) REFERENCES threads(id)
 );
 
--- CREATE TRIGGER update_time UPDATE ON threads FOR EACH ROW BEGIN UPDATE threads SET updated_at=TIMESTAMP DEFAULT CURRENT_TIMESTAMP END;
+CREATE TABLE likes(
+id INTEGER PRIMARY KEY,
+thread_id INTEGER,
+user_id INTEGER,
+FOREIGN KEY (user_id) REFERENCES users(id),
+FOREIGN KEY (thread_id) REFERENCES threads(id)
+);
 
 PRAGMA foreign_keys = ON;

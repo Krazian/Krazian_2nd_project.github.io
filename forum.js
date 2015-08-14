@@ -21,7 +21,7 @@ app.get("/",function(req,res){
 
 //'home' page
 app.get("/threads", function(req,res){
-	db.all("SELECT title, id, created_at, comments FROM threads",function(err,row){
+	db.all("SELECT title, id, created_at, updated_at, comments FROM threads",function(err,row){
 		if(err){
 			throw err;
 		}else{
@@ -66,7 +66,7 @@ app.put("/threads/:id", function(req,res){
 		//else the changes are saved
 	}else{
 	//changes content of post and the timestamp when it was changed
-		db.run("UPDATE threads SET content=?, updated_at=CURRENT_TIMESTAMP WHERE id=?",req.body.content,id,function(err){
+		db.run("UPDATE threads SET content=?, updated_at=(datetime('now','localtime')) WHERE id=?",req.body.content,id,function(err){
 
 			if(err){
 				throw err;
