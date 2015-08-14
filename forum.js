@@ -16,8 +16,6 @@ app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({extended:false}));
 app.set('view_engine','ejs');
 
-//Alert for bad info
-
 //self explanatory
 var api = JSON.parse(fs.readFileSync("api_keys.json","utf8"));
 
