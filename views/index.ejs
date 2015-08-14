@@ -12,7 +12,7 @@
 		<button><a href="/threads/filter/likes">Likes</a></button>
 	<ul>
 	<% threads.forEach(function(threads){ %>
-		<li><a href="/threads/<%= threads.id %>"><%= threads.title %></a> <p>Created: <%=threads.created_at%> | Updated: <%=threads.updated_at %><br/>Comments: <%=threads.comments%></p></li>
+		<li><a href="/threads/<%= threads.id %>"><%= threads.title %></a> <p>Created: <%=threads.created_at%> | Updated: <%=threads.updated_at %><br/>Comments: <%=threads.comments%><br/>Likes: <%=threads.likes%></p></li>
 	<% })%>
 </ul>
 </body>

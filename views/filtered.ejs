@@ -12,7 +12,7 @@
 		<button><a href="/threads/filter/likes">Likes</a></button>
 	<ul>
 	<% filter.forEach(function(filter){ %>
-		<li><a href="/threads/<%= filter.id %>"><%= filter.title %></a> <p>Created: <%=filter.created_at%><br/>Comments: <%=filter.comments%></p></li>
+		<li><a href="/threads/<%= filter.id %>"><%= filter.title %></a> <p>Created: <%=filter.created_at%><br/>Comments: <%=filter.comments%><br/>Likes: <%=filter.likes%></p></li>
 	<% }) %>
 </ul>
 </body>

@@ -21,7 +21,7 @@ app.get("/",function(req,res){
 
 //'home' page
 app.get("/threads", function(req,res){
-	db.all("SELECT title, id, created_at, updated_at, comments FROM threads",function(err,row){
+	db.all("SELECT title, id, created_at, updated_at, likes, comments FROM threads",function(err,row){
 		if(err){
 			throw err;
 		}else{
@@ -45,7 +45,7 @@ app.post("/threads",function(req,res){
 
 //Filter page by comments
 app.get("/threads/filter/comments", function(req,res){
-		db.all("SELECT id, title, created_at, comments FROM threads ORDER BY comments DESC",function(err,comments){
+		db.all("SELECT * FROM threads ORDER BY comments DESC",function(err,comments){
 			res.render("filtered.ejs",{filter:comments});
 		});
 });
@@ -123,6 +123,12 @@ app.get("/threads/:id/edit",function(req,res){
 				res.render("edit.ejs",{content:content});
 			};
 		});
+});
+
+//Like a thread
+app.put("/threads/:id/likes", function(req,res){
+	var id = req.params.id;
+	db.run("UPDATE threads SET likes = likes+1 WHERE id=?", id, function(err){});
 });
 
 //'Server listening' and end of code
