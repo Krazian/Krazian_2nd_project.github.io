@@ -3,20 +3,29 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Filter</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
 	<link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css"  href="../style.css">
+	<link rel="stylesheet" type="text/css"  href="/../style.css">
 </head>
 <body>
-	<h1>Filtered Topics </h1><br/><button><a href="/threads">Home</a></button><br/>
-	<button><a href="/threads/newthread">New Post</a></button><br/>
-	<label for="filter">Filter by: </label>
-		<button><a href="/threads/filter/comments">Comments</a></button>
-		<button><a href="/threads/filter/likes">Likes</a></button>
-	<ul>
-	<% filter.forEach(function(filter){ %>
-		<li><a href="/threads/<%= filter.id %>"><%= filter.title %></a> <p>Created: <%=filter.created_at%><br/>Comments: <%=filter.comments%><br/>Likes: <%=filter.likes%></p></li>
-	<% }) %>
-</ul>
+	<div class="pure-g">
+		<div class="pure-u-1">	
+			<h1 class="pure-u-1-2">Filtered Topics </h1><button class="home pure-u-1-8"><a href="/threads">Home</a></button>
+			</div>
+		<div class="pure-u-1">
+			<button class="pure-u-1-6"><a href="/threads/newthread">New Post</a></button>
+			<label for="filter" class="pure-u-1-6">Filter by: </label>
+				<button class="pure-u-1-6"><a href="/threads/filter/comments">Comments</a></button>
+				<button class="pure-u-1-6"><a href="/threads/filter/likes">Likes</a></button>
+			</div>
+			<ul class="pure-u-1">
+			<% filter.forEach(function(filter){ %>
+				<br/>
+				<li><a href="/threads/<%= filter.id %>"><%= filter.title %></a> <p>Created: <%=filter.created_at%><br/>Comments: <%=filter.comments%><br/>Likes: <%=filter.likes%></p></li>
+			<% }) %>
+		</ul>
+</div>
 </body>
 </html>

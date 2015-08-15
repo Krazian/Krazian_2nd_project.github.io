@@ -3,21 +3,32 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Main Page</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
 	<link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css"  href="../style.css">
+	<link rel="stylesheet" type="text/css"  href="/../style.css">
 </head>
 <body>
-	<h1>Topics</h1><br/><button><a href="/threads">Home</a></button><br/>
-	<button><a href="/threads/newthread">New Post</a></button><br/>
-	<button><a href="/threads/newuser">Create New Username</a></button><br/>
-		<label for="filter">Filter by: </label>
-		<button><a href="/threads/filter/comments">Comments</a></button>
-		<button><a href="/threads/filter/likes">Likes</a></button>
-	<ul>
+	<div class="pure-g">
+	<h1 class="pure-u-1">Topics</h1>
+	<br/>
+	<nav class="pure-u-1">
+		<ul class="ons pure-u-1">
+			<li class="butt pure-u-1-4"><button ><a href="/threads">Home</a></button><br/></li>
+			<li class="butt pure-u-1-4"><button ><a href="/threads/newthread">New Post</a></button><br/></li>
+			<li class="butt pure-u-1-4"><button ><a href="/threads/newuser">New Handle</a></button><br/></li>
+			<li class="butt pure-u-1-4"><label for="filter" >Filter by: </label></li>
+			<li class="butt pure-u-1-4"><button ><a href="/threads/filter/comments">Comments</a></button></li>
+			<li class="butt pure-u-1-4"><button ><a href="/threads/filter/likes">Likes</a></button></li>
+		</ul>
+	</nav>
+	<ul class="pure-u-1">
 	<% threads.forEach(function(threads){ %>
+	<br/>
 		<li><a href="/threads/<%= threads.id %>"><%= threads.title %></a> <p>Created: <%=threads.created_at%> | Updated: <%=threads.updated_at %><br/>Comments: <%=threads.comments%><br/>Likes: <%=threads.likes%></p></li>
 	<% })%>
 </ul>
+</div>
 </body>
 </html>

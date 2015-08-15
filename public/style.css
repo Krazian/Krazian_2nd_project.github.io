@@ -1,4 +1,23 @@
+a{
+	padding:5px 5px 5px 5px;
+}
+
+.home{
+	margin-top:20px;
+}
+
+h1{
+	font-family: 'Press Start 2P', cursive;
+}
+
 body{
 	font-family: 'Press Start 2P', cursive;
 	font-size:12gpx;
+}
+.ons{
+	text-align: center;
+	display:inline;
+}
+.pure-g [class *= "pure-u"] {
+   font-family: 'Press Start 2P', cursive;
 }

@@ -1,12 +1,11 @@
 $( document ).ready(function() {
 console.log("TROLOLOLOL")
 
-var enter = $("<button>").attr("id","enter");
 var link = $("<a>").attr("href","/threads");
 
 setTimeout(function(){
-	$("body").append(enter);
-	$("#enter").append(link);
+	$("body").append(link);
+	$("a").addClass("pure-button pure-button-active");
 	$("a").text("Enter TROLOLOLOL");
 }	,5000);
 });

@@ -3,12 +3,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title><%=threads.title%></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
 	<link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css"  href="../style.css">
+	<link rel="stylesheet" type="text/css"  href="/../style.css">
 </head>
 <body>
-	<button><a href="/threads">Home</a></button><br/>
+	<a class="pure-button" href="/threads">Home</a><br/>
 	<h1><%=threads.title%> by "<%=threads.username%>"</h1>
 	<h3>Created:<%= threads.created_at %><br/>Last Updated: <%= threads.updated_at %></h3>
 		<h4><%= threads.content %></h4>
@@ -24,12 +26,12 @@
 
 
 <div class="buttons">
-		<button><a href="/threads/<%= threads.id %>/edit">Edit</a></button>
+		<a class="pure-button" href="/threads/<%= threads.id %>/edit">Edit</a>
 		<form action="/threads/<%=threads.id%>/?_method=DELETE" method="POST">
-			<button>Delete</button>
+			<button class="pure-button">Delete</button>
 		</form>
 		<form action="/threads/<%=threads.id%>/likes/?_method=PUT" method="POST">
-		<button>Like</button>
+		<button class="pure-button">Like</button>
 		</form>
 </div>
 		<form action="/threads/<%=threads.id%>" method="POST">
@@ -40,7 +42,7 @@
 			</select>
 				<br/>
 			<textarea type="text" name="content" rows="15" cols="50" wrap="physical" placeholder="Write a comment!"></textarea><br/>
-			<input type="submit">
+			<button class="pure-button pure-button-primary">Submit</button> 
 		</form>
 </body>
 </html>
