@@ -32,12 +32,12 @@
 					<legend>Options</legend>
 				</form>
 		<div class="buttons pure-u-1">
-				<button class="pure-button pure-u-1-4">Like</button>
+				<a class="pure-button pure-u-1-4" href="/threads/<%= threads.id %>/edit">Edit</a>
 				<form class="pure-form pure-u-1-4" action="/threads/<%=threads.id%>/?_method=DELETE" method="POST">
 					<button class="pure-button pure-u-1">Delete</button>
 				</form>
 				<form class="pure-form pure-u-1-4" action="/threads/<%=threads.id%>/likes/?_method=PUT" method="POST">
-					<a class="pure-button pure-u-1" href="/threads/<%= threads.id %>/edit">Edit</a><br/><br/>
+					<button class="pure-button pure-u-1">Like</button><br/><br/>
 				</form>
 		</div>
 

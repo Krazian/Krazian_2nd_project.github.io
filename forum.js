@@ -118,6 +118,8 @@ app.post("/threads/random/newuser",function(req,res){
 app.post("/threads/man/newuser",function(req,res){
 	db.all("SELECT * FROM users",function(err,allusers){
 		var match = false
+		if (req.body.username===""){
+		} else {
 		allusers.forEach(function(user){
 			if (req.body.username === user.username){
 				match = true
@@ -177,6 +179,7 @@ app.post("/threads/man/newuser",function(req,res){
 				"<script type='text/javascript'>alert('This name already exists, come up with something original!')</script>"+
 				"</html>");  
 					};
+				}
 				});
 			});
 
