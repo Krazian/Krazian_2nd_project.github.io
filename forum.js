@@ -191,8 +191,11 @@ app.get("/threads/newthread", function(req,res){
 
 //post a new thread
 app.post("/threads",function(req,res){
+	if(req.body.title===""||req.body.content===""){
+	}else{
 	db.run("INSERT INTO threads (user_id,title,content,likes,comments) VALUES (?,?,?,?,?)",req.body.chooseUsername,req.body.title,req.body.content,0,0)
 	res.redirect("/threads");
+		}
 	});
 });
 
