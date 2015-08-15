@@ -10,9 +10,10 @@
 	<link rel="stylesheet" type="text/css"  href="/../style.css">
 </head>
 <body>
+	<h1>Edit</h1>
 	<form method="POST" action="/threads/<%=content.id%>?_method=PUT">
-	<textarea type="text" name="content" rows="15" cols="50" wrap="physical"><%=content.content%></textarea>
-	<input type="submit">
+	<textarea type="text" name="content" rows="15" cols="50" wrap="physical"><%=content.content%></textarea><br/>
+	<button class="pure-button pure-button-primary">Submit</button>
 </form>
 </body>
 </html>

@@ -10,8 +10,13 @@
 	<link rel="stylesheet" type="text/css"  href="/../style.css">
 </head>
 <body>
-	<form class="puref-form pure-form-stacked" method="POST" action="/threads">
-		<select name="chooseUsername">
+	<form class="pure-form pure-form-stacked" method="POST" action="/threads">
+		<h1>Post A New Thread!</h1>
+		<div class="pure-u-1">
+			<a class="pure-u-1-4 pure-button" href="/threads">Home</a><br/><br>
+			<div class="pure-u-1">
+		<legend>Handle</legend>
+		<select class="pure-menu" name="chooseUsername">
 				<% users.forEach(function(each){ %>
 					<option value="<%=each.id%>"><%=each.username%></option>
 						<% }) %>

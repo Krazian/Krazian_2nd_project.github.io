@@ -1,9 +1,9 @@
-a{
-	padding:5px 5px 5px 5px;
+.landing{
+	text-align:center
 }
 
-.home{
-	margin-top:20px;
+.button-warning {
+background: rgb(223, 117, 20);
 }
 
 h1{
@@ -14,10 +14,7 @@ body{
 	font-family: 'Press Start 2P', cursive;
 	font-size:12gpx;
 }
-.ons{
-	text-align: center;
-	display:inline;
-}
+
 .pure-g [class *= "pure-u"] {
    font-family: 'Press Start 2P', cursive;
 }

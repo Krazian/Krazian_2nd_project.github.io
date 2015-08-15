@@ -57,21 +57,55 @@ app.post("/threads/random/newuser",function(req,res){
 				}});
 				if (match === false){
 					db.run("INSERT INTO users (username) VALUES (?)",name,function(err){});
-					res.send("<h1><a href='/threads'>HOME</a></h1><script type='text/javascript'>alert('The name "+name+" was added! Hurrayyyy!! Now go home...What? You expected me to do that for you?')</script>");
-				} else {
-					res.send("<html lang='en'>"+
-					"<head>"+
-					"	<meta charset='UTF-8'>"+
-					"	<title>Add New Username</title>"+
-					"</head>"+
+					res.send(
+					"<!DOCTYPE html>"+
+					"<html lang='en'>"+
+						"<head>"+
+							"	<meta charset='UTF-8'>"+
+							"	<title>Add New Username</title>"+
+							"	<meta name='viewport' content='width=device-width, initial-scale=1'>"+
+							"	<link rel='stylesheet' href='http://yui.yahooapis.com/pure/0.6.0/pure-min.css'>"+
+							"	<link rel='stylesheet' href='http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css'>"+
+							"	<link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>"+
+							"	<link rel='stylesheet' type='text/css'  href='/../style.css'>"+
+						"</head>"+
 					"<body>"+
-					"	<br/><button><a href='/threads'>Home</a></button><br/>"+
-					"	<form method='POST' action='/threads/man/newuser'>"+
-							"<input type='text' name='username'><br/><input type='submit'>"+
-						"</form>"+
-					"	<form method='POST' action='/threads/random/newuser'>"+
-					"		<button>RANDOMIZE</button>"+
-					"	</form>"+
+					"<div class='pure-g'>"+
+					"<h1><a class='pure-u-1 pure-button pure-button-primary' href='/threads'>HOME</a></h1>"+
+					"</div>"+
+					"</body>"+
+					"<script type='text/javascript'>alert('The name "+name+" was added! Hurrayyyy!! Now go home...What? You expected me to do that for you?')</script>"+
+					"</html>");
+				} else {
+					res.send(
+					"<!DOCTYPE html>"+
+					"<html lang='en'>"+
+						"<head>"+
+							"	<meta charset='UTF-8'>"+
+							"	<title>Add New Username</title>"+
+							"	<meta name='viewport' content='width=device-width, initial-scale=1'>"+
+							"	<link rel='stylesheet' href='http://yui.yahooapis.com/pure/0.6.0/pure-min.css'>"+
+							"	<link rel='stylesheet' href='http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css'>"+
+							"	<link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>"+
+							"	<link rel='stylesheet' type='text/css'  href='/../style.css'>"+
+						"</head>"+
+					"<body>"+
+						"<br/><a class='pure-button' href='/threads'>Home</a><br/>"+
+						"<div class='pure-u-1'>"+
+							"<form class='pure-u-1 pure-form' method='POST' action='/threads/man/newuser'>"+
+								"<h1>Add A New User To The Mix!</h1>"+
+								"<legend>New Handle</legend>"+
+								"<input class='pure-input-rounded pure-input-1-4' type='text' name='username'>"+
+								"<button class='pure-u-1-4 pure-button pure-button-primary'>Submit</button>"+
+								"</form>"+
+							"</div>"+
+						"<div class='pure-u-1'>"+
+							"<form class='pure-form pure-u-1' method='POST' action='/threads/random/newuser'>"+
+							"<p class='pure-u-1-4'></p>"+
+							"<button class='button-warning pure-button pure-input-1-4'>RANDOMIZE</button>"+
+							"</form>"+
+						"</div>"+
+					"</div>"+
 					"</body>"+
 					"<script type='text/javascript'>alert('This name already exists, come up with something original!')</script>"+
 					"</html>");  
@@ -90,25 +124,58 @@ app.post("/threads/man/newuser",function(req,res){
 			}});
 			if (match === false){
 				db.run("INSERT INTO users (username) VALUES (?)",req.body.username,function(err){});
-				res.send("<h1><a href='/threads'>HOME</a></h1><script type='text/javascript'>alert('The name "+req.body.username+" was added! Hurrayyyy!! Now go home...What? You expected me to do that for you?')</script>");
-			} else {
-				res.send("<!DOCTYPE html>"+
+				res.send(
+					"<!DOCTYPE html>"+
 					"<html lang='en'>"+
-					"<head>"+
-					"	<meta charset='UTF-8'>"+
-					"	<title>Add New Username</title>"+
-					"</head>"+
+						"<head>"+
+							"	<meta charset='UTF-8'>"+
+							"	<title>Add New Username</title>"+
+							"	<meta name='viewport' content='width=device-width, initial-scale=1'>"+
+							"	<link rel='stylesheet' href='http://yui.yahooapis.com/pure/0.6.0/pure-min.css'>"+
+							"	<link rel='stylesheet' href='http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css'>"+
+							"	<link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>"+
+							"	<link rel='stylesheet' type='text/css'  href='/../style.css'>"+
+						"</head>"+
 					"<body>"+
-					"	<br/><button><a href='/threads'>Home</a></button><br/>"+
-					"	<form method='POST' action='/threads/man/newuser'>"+
-							"<input type='text' name='username'><br/><input type='submit'>"+
-						"</form>"+
-					"	<form method='POST' action='/threads/random/newuser'>"+
-					"		<button>RANDOMIZE</button>"+
-					"	</form>"+
+					"<div class='pure-g'>"+
+					"<h1><a class='pure-u-1 pure-button pure-button-primary' href='/threads'>HOME</a></h1>"+
+					"</div>"+
 					"</body>"+
-					"<script type='text/javascript'>alert('This name already exists, come up with something original!')</script>"+
-					"</html>");  
+					"<script type='text/javascript'>alert('The name "+req.body.username+" was added! Hurrayyyy!! Now go home...What? You expected me to do that for you?')</script>"+
+					"</html>");
+			} else {
+				res.send(
+				"<!DOCTYPE html>"+
+				"<html lang='en'>"+
+					"<head>"+
+						"	<meta charset='UTF-8'>"+
+						"	<title>Add New Username</title>"+
+						"	<meta name='viewport' content='width=device-width, initial-scale=1'>"+
+						"	<link rel='stylesheet' href='http://yui.yahooapis.com/pure/0.6.0/pure-min.css'>"+
+						"	<link rel='stylesheet' href='http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css'>"+
+						"	<link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>"+
+						"	<link rel='stylesheet' type='text/css'  href='/../style.css'>"+
+					"</head>"+
+				"<body>"+
+					"<br/><a class='pure-button' href='/threads'>Home</a><br/>"+
+					"<div class='pure-u-1'>"+
+						"<form class='pure-u-1 pure-form' method='POST' action='/threads/man/newuser'>"+
+							"<h1>Add A New User To The Mix!</h1>"+
+							"<legend>New Handle</legend>"+
+							"<input class='pure-input-rounded pure-input-1-4' type='text' name='username'>"+
+							"<button class='pure-u-1-4 pure-button pure-button-primary'>Submit</button>"+
+							"</form>"+
+						"</div>"+
+					"<div class='pure-u-1'>"+
+						"<form class='pure-form pure-u-1' method='POST' action='/threads/random/newuser'>"+
+						"<p class='pure-u-1-4'></p>"+
+						"<button class='button-warning pure-button pure-input-1-4'>RANDOMIZE</button>"+
+						"</form>"+
+					"</div>"+
+				"</div>"+
+				"</body>"+
+				"<script type='text/javascript'>alert('This name already exists, come up with something original!')</script>"+
+				"</html>");  
 					};
 				});
 			});
