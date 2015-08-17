@@ -74,7 +74,7 @@ app.post("/threads/random/newuser",function(req,res){
 						"</head>"+
 					"<body>"+
 					"<div class='pure-g'>"+
-					"<h1><a class='pure-u-1 pure-button pure-button-primary' href='/threads'>HOME</a></h1>"+
+					"<h1><a class='pure-u-1 pure-button pure-button-primary button-xlarge' href='/threads'>HOME</a></h1>"+
 					"</div>"+
 					"</body>"+
 					"<script type='text/javascript'>alert('The name "+name+" was added! Hurrayyyy!! Now go home...What? You expected me to do that for you?')</script>"+
@@ -151,7 +151,7 @@ app.post("/threads/man/newuser",function(req,res){
 						"</head>"+
 					"<body>"+
 					"<div class='pure-g'>"+
-					"<h1><a class='pure-u-1 pure-button pure-button-primary' href='/threads'>HOME</a></h1>"+
+					"<h1><a class='pure-u-1 pure-button pure-button-primary button-xlarge' href='/threads'>HOME</a></h1>"+
 					"</div>"+
 					"</body>"+
 					"<script type='text/javascript'>alert('The name "+req.body.username+" was added! Hurrayyyy!! Now go home...What? You expected me to do that for you?')</script>"+
