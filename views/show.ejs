@@ -12,7 +12,7 @@
 <body>
 	<!-- Info from original post -->
 	<div class="pure-g">
-	<h1 class="pure-u-1"><%=threads.title%> by "<%=threads.username%>"</h1>
+	<h1 class="pure-u-1"><%=threads.title%> by <img	class="avatar" src='<%=threads.avatar%>'> "<%=threads.username%>"</h1>
 	<div class="pure-u-1">
 		<a class="pure-button pure-u-1-4" href="/threads">Home</a>
 		</div>
@@ -22,7 +22,7 @@
 		<h5 class="pure-u-1">Comments</h5>
 			<%users.forEach(function(users){%>
 			<ul class="pure-u-1 comments">
-				<li class="pure-u-1-1">><%=users.username%> (<%=users.created_at%>) said:
+				<li class="pure-u-1-1"><img	class="avatar" src='<%=users.avatar%>'><%=users.username%> (<%=users.created_at%>) said:
 					<br/><br/>
 					"<%=users.content%>"
 				</li>

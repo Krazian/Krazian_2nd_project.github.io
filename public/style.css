@@ -3,7 +3,10 @@
 }
 
 .avatar{
-	border-radius: 1500px;
+	max-width:50px;
+	max-height: 50px;
+	border-radius: 25px;
+	border:solid black 1px;
 }
 
 .button-warning {

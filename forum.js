@@ -16,7 +16,7 @@ app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({extended:false}));
 app.set('view_engine','ejs');
 
-//self explanatory
+//api key for random name generator
 var api = JSON.parse(fs.readFileSync("api_keys.json","utf8"));
 
 //root path redirect
@@ -49,6 +49,7 @@ app.get("/threads/newuser", function(req,res){
 app.post("/threads/random/newuser",function(req,res){
 	request("https://randomapi.com/api/?key="+api.random.key+"&id="+api.random.id, function(err,response,body){
 		var name = JSON.parse(body).results[0].object.list;
+		var pic;
 		db.all("SELECT * FROM users",function(err,allusers){
 			var match = false
 			allusers.forEach(function(user){
@@ -56,8 +57,10 @@ app.post("/threads/random/newuser",function(req,res){
 					match = true;
 				}});
 				if (match === false){
-					db.run("INSERT INTO users (username) VALUES (?)",name,function(err){});
+					//if username doesn't already exist add to table
+					db.run("INSERT INTO users (username,avatar) VALUES (?,?)",name,"/../smiley-7175.jpg",function(err){});
 					res.send(
+						//renders a blank page with HOME button and an alert window to confirm submission 
 					"<!DOCTYPE html>"+
 					"<html lang='en'>"+
 						"<head>"+
@@ -78,6 +81,7 @@ app.post("/threads/random/newuser",function(req,res){
 					"</html>");
 				} else {
 					res.send(
+						//renders same page, but sends alert that the name already exists
 					"<!DOCTYPE html>"+
 					"<html lang='en'>"+
 						"<head>"+
@@ -107,14 +111,14 @@ app.post("/threads/random/newuser",function(req,res){
 						"</div>"+
 					"</div>"+
 					"</body>"+
-					"<script type='text/javascript'>alert('This name already exists, come up with something original!')</script>"+
+					"<script type='text/javascript'>alert('This name already exists, try the randomizer again!')</script>"+
 					"</html>");  
 				};
 			});
 		});
 	});
 
-//add new user
+//add new user manually
 app.post("/threads/man/newuser",function(req,res){
 	db.all("SELECT * FROM users",function(err,allusers){
 		var match = false
@@ -125,8 +129,15 @@ app.post("/threads/man/newuser",function(req,res){
 				match = true
 			}});
 			if (match === false){
-				db.run("INSERT INTO users (username) VALUES (?)",req.body.username,function(err){});
+				if(req.body.avatar ===""){
+						pic = "/../smiley-7175.jpg";
+					} else {
+						pic = req.body.avatar;
+					}
+					//if username doesn't already exists in table
+				db.run("INSERT INTO users (username,avatar) VALUES (?,?)",req.body.username,pic,function(err){});
 				res.send(
+					//renders a blank page with HOME button and an alert window to confirm submission
 					"<!DOCTYPE html>"+
 					"<html lang='en'>"+
 						"<head>"+
@@ -147,6 +158,7 @@ app.post("/threads/man/newuser",function(req,res){
 					"</html>");
 			} else {
 				res.send(
+					//renders same page, but sends alert that the name already exists
 				"<!DOCTYPE html>"+
 				"<html lang='en'>"+
 					"<head>"+
@@ -237,9 +249,10 @@ app.put("/threads/:id", function(req,res){
 app.get("/threads/:id", function(req,res){
 	var id = req.params.id;
 	//grabs specific columns from specific thread where the id matches id in url
-	db.get("SELECT threads.id, threads.title, users.username, threads.created_at, threads.updated_at, threads.content FROM threads INNER JOIN users ON threads.id=? WHERE users.id=threads.user_id;",id,function(err,threads){
+	db.get("SELECT threads.id, threads.title, users.avatar, users.username, threads.created_at, threads.updated_at, threads.content FROM threads INNER JOIN users ON threads.id=? WHERE users.id=threads.user_id;",id,function(err,threads){
 				//within the thread grab certain columns from both tables to prevent overlapping
-				db.all("SELECT users.username, users.id, comments.created_at, comments.content FROM comments INNER JOIN users ON comments.user_id=users.id WHERE comments.thread_id=?",id,function(err,users){
+				db.all("SELECT users.username, users.id, users.avatar, comments.created_at, comments.content FROM comments INNER JOIN users ON comments.user_id=users.id WHERE comments.thread_id=?",id,function(err,users){
+					console.log(users)
 					//gets all users for dropdown in ejs
 					db.all("SELECT * FROM users",function(err,allusers){
 				res.render("show.ejs",{threads:threads, users:users, allusers:allusers});
